@@ -45,6 +45,18 @@ module VestalVersions
       def reverted?
         version != last_version
       end
+      
+      
+      # Returns an array of clones.  Each clone is a single version from the range provided.
+      def get_versions(range)
+        versions = []
+        range.each do |version_number|
+          revert_to(version_number)
+          versions << self.clone
+        end
+        self.reload
+        versions
+      end
 
       private
 
