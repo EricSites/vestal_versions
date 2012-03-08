@@ -5,23 +5,23 @@ module VestalVersions
     extend ActiveSupport::Concern
 
     # Class methods on ActiveRecord::Base to prepare the <tt>:if</tt> and <tt>:unless</tt> options.
-    module ClassMethods
-      # After the original +prepare_versioned_options+ method cleans the given options, this alias
-      # also extracts the <tt>:if</tt> and <tt>:unless</tt> options, chaning them into arrays
-      # and converting any symbols to procs. Procs are called with the ActiveRecord model instance
-      # as the sole argument.
-      #
-      # If all of the <tt>:if</tt> conditions are met and none of the <tt>:unless</tt> conditions
-      # are unmet, than version creation will proceed, assuming all other conditions are also met.
-      def prepare_versioned_options(options)
-        result = super(options)
 
-        vestal_versions_options[:if] = Array(options.delete(:if)).map(&:to_proc)
-        vestal_versions_options[:unless] = Array(options.delete(:unless)).map(&:to_proc)
+    # After the original +prepare_versioned_options+ method cleans the given options, this alias
+    # also extracts the <tt>:if</tt> and <tt>:unless</tt> options, chaning them into arrays
+    # and converting any symbols to procs. Procs are called with the ActiveRecord model instance
+    # as the sole argument.
+    #
+    # If all of the <tt>:if</tt> conditions are met and none of the <tt>:unless</tt> conditions
+    # are unmet, than version creation will proceed, assuming all other conditions are also met.
+    def prepare_versioned_options(options)
+      result = super(options)
 
-        result
-      end
+      vestal_versions_options[:if] = Array(options.delete(:if)).map(&:to_proc)
+      vestal_versions_options[:unless] = Array(options.delete(:unless)).map(&:to_proc)
+
+      result
     end
+
 
     # Instance methods that determine based on the <tt>:if</tt> and <tt>:unless</tt> conditions,
     # whether a version is to be create or updated.
