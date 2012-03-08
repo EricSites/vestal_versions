@@ -11,17 +11,19 @@ module VestalVersions
     end
 
     # Class methods added to ActiveRecord::Base to facilitate the creation of new versions.
-    # Overrides the basal +prepare_versioned_options+ method defined in VestalVersions::Options
-    # to extract the <tt>:only</tt>, <tt>:except</tt> and <tt>:initial_version</tt> options
-    # into +vestal_versions_options+.
-    def prepare_versioned_options(options)
-      result = super(options)
+    module ClassMethods
+     # Overrides the basal +prepare_versioned_options+ method defined in VestalVersions::Options
+      # to extract the <tt>:only</tt>, <tt>:except</tt> and <tt>:initial_version</tt> options
+      # into +vestal_versions_options+.
+      def prepare_versioned_options(options)
+        result = super(options)
 
-      self.vestal_versions_options[:only] = Array(options.delete(:only)).map(&:to_s).uniq if options[:only]
-      self.vestal_versions_options[:except] = Array(options.delete(:except)).map(&:to_s).uniq if options[:except]
-      self.vestal_versions_options[:initial_version] = options.delete(:initial_version)
+        self.vestal_versions_options[:only] = Array(options.delete(:only)).map(&:to_s).uniq if options[:only]
+        self.vestal_versions_options[:except] = Array(options.delete(:except)).map(&:to_s).uniq if options[:except]
+        self.vestal_versions_options[:initial_version] = options.delete(:initial_version)
         
-      result
+        result
+      end
     end
 
     # Instance methods that determine whether to save a version and actually perform the save.
