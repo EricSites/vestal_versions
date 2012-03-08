@@ -5,7 +5,7 @@ module VestalVersions
 
     # Overrides the +versioned+ method to first define the +versioned?+ class method before
     # deferring to the original +versioned+.
-    #module ClassMethods
+    module ClassMethods
       def versioned(*args)
         super(*args)
 
@@ -21,7 +21,6 @@ module VestalVersions
       def versioned?
         false
       end
-    #end
-
+    end
   end
 end
