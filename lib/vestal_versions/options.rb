@@ -4,7 +4,6 @@ module VestalVersions
     extend ActiveSupport::Concern
 
     # Class methods that provide preparation of options passed to the +versioned+ method.
-    module ClassMethods
       # The +prepare_versioned_options+ method has three purposes:
       # 1. Populate the provided options with default values where needed
       # 2. Prepare options for use with the +has_many+ association
@@ -36,6 +35,5 @@ module VestalVersions
           :extend => Array(options[:extend]).unshift(Versions)
         )
       end
-    end
   end
 end
