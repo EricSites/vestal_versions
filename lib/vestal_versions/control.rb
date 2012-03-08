@@ -161,7 +161,7 @@ module VestalVersions
       end
 
 
-#    module ClassMethods
+    module ClassMethods
       # The +skip_version+ block simply allows for updates to be made to an instance of a versioned
       # ActiveRecord model while ignoring all new version creation. The <tt>:if</tt> and
       # <tt>:unless</tt> conditions (if given) will not be evaulated inside a +skip_version+ block.
@@ -195,6 +195,6 @@ module VestalVersions
         self.send("#{flag}=", nil)
       end
 
- #   end
+    end
   end
 end
