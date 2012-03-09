@@ -52,7 +52,7 @@ module VestalVersions
         versions = []
         range.each do |version_number|
           revert_to(version_number)
-          versions << self.clone
+          versions << Marshal.load( Marshal.dump(self) )
         end
         self.reload
         versions
